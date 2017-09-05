@@ -72,6 +72,13 @@ namespace :lint do
   task :licenses do
     sh 'bundle exec license_finder'
   end
+
+  begin
+    require 'yard-junk/rake'
+    YardJunk::Rake.define_task
+  rescue LoadError # rubocop:disable Lint/HandleExceptions
+    # Not an issue; this lint tool requires Ruby 2.3+
+  end
 end
 
 namespace :rubygem do
